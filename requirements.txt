@@ -2,7 +2,6 @@ pytelegrambotapi
 flask
 dnspython
 elasticsearch
-logging
 base64
 re
 datetime
