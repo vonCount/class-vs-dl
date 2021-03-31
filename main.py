@@ -11,7 +11,7 @@ API_TOKEN = os.environ['TOKEN']
 bot = telebot.TeleBot(API_TOKEN)
 
 # Log transport details (optional):
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 
 
 server = Flask(__name__)
