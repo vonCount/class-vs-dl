@@ -74,14 +74,5 @@ def webhook():
     bot.set_webhook(url=BASE_URL + TELEBOT_URL + API_TOKEN)
     return "!", 200
 
-
-parser = argparse.ArgumentParser(description='Run the bot')
-parser.add_argument('--poll', action='store_true')
-args = parser.parse_args()
-
-if args.poll:
-    bot.remove_webhook()
-    bot.polling()
-else:
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-    webhook()
+server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+webhook()
