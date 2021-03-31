@@ -3,6 +3,13 @@ import os
 import telebot
 from flask import Flask, request
 import requests
+import pandas as pd
+import sklearn
+from sklearn.feature_extraction.text import TfidfVectorizer #TF-IDF
+from sklearn.decomposition import TruncatedSVD
+import numpy as np
+from sklearn.neighbors import BallTree
+from sklearn.base import BaseEstimator
 
 API_TOKEN = os.environ['TOKEN']
 bot = telebot.TeleBot(API_TOKEN)
@@ -11,20 +18,16 @@ server = Flask(__name__)
 TELEBOT_URL = 'class-vs-dl/'
 BASE_URL = 'https://class-vs-dl.herokuapp.com/'
 
-
-import pandas as pd
 good = pd.read_csv("https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv", sep='\t')
-from sklearn.feature_extraction.text import TfidfVectorizer #TF-IDF
+
 vectorizer = TfidfVectorizer()
 vectorizer.fit(good.context_0)
 matrix_big = vectorizer.transform(good.context_0)
-from sklearn.decomposition import TruncatedSVD
+
 svd = TruncatedSVD(n_components=300)
 svd.fit(matrix_big)
 matrix_small =  svd.transform(matrix_big)
-import numpy as np
-from sklearn.neighbors import BallTree
-from sklearn.base import BaseEstimator
+
 def softmax(x):
   proba = np.exp(-x)
   return proba/sum(proba)
