@@ -4,8 +4,8 @@ import telebot
 from datetime import datetime
 from flask import Flask, request
 #from pymongo import MongoClient
-import os, base64, re
-#import logging
+import os, re
+#import logging, base64
 from elasticsearch import Elasticsearch
 
 API_TOKEN = os.environ['TOKEN']
