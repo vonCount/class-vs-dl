@@ -6,3 +6,4 @@ sklearn
 pandas
 numpy
 requests
+telebot
