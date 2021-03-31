@@ -45,6 +45,11 @@ class NeighborSampler(BaseEstimator):
         for distance, index in zip(distances, indices):
             result.append(np.random.choice(index, p=softmax(distance * self.temperature)))
             return self.y_[result]
+          
+from sklearn.pipeline import make_pipeline
+ns = NeighborSampler()
+ns.fit(matrix_small, good.reply)
+pipe = make_pipeline(vectorizer, svd, ns)
 
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
