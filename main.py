@@ -49,14 +49,6 @@ es.indices.create(index="logs")
 #mongo_db = mongo_client.get_default_database()
 #mongo_logs = mongo_db.get_collection('logs')
 
-mapit={"log":{"properties":{"author":{"type":"text"},
-                                "date":{"type":"text"},
-                                "time":{"type":"date", "format":"HH:mm"},
-                                "difficulty":{"type":"double"},
-                                "rubrics":{"type":"text","analyzer" : "russian"},
-                                "text":{"type":"text","analyzer" : "russian"},
-                                "title":{"type":"text","analyzer" : "russian"}}}}
-
 mapit={"log":{"properties":{"text":{"type":"text"},
                             "response":{"type":"text"},
                             "user_nickname":{"type":"text"}
