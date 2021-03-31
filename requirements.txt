@@ -2,3 +2,4 @@ pytelegrambotapi
 flask
 dnspython
 elasticsearch
+sklearn
