@@ -5,3 +5,4 @@ elasticsearch
 logging
 base64
 re
+datetime
