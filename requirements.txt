@@ -3,3 +3,6 @@ flask
 dnspython
 elasticsearch
 sklearn
+pandas
+numpy
+requests
