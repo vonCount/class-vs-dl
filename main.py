@@ -16,7 +16,7 @@ link = requests.get(url).content
 
 
 import pandas as pd
-good = pd.read_csv(link, sep='\t')
+good = pd.read_csv("https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv", sep='\t')
 from sklearn.feature_extraction.text import TfidfVectorizer #TF-IDF
 vectorizer = TfidfVectorizer()
 vectorizer.fit(good.context_0)
