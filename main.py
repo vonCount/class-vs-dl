@@ -11,9 +11,6 @@ server = Flask(__name__)
 TELEBOT_URL = 'class-vs-dl/'
 BASE_URL = 'https://class-vs-dl.herokuapp.com/'
 
-url = "https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv"
-link = requests.get(url).content
-
 
 import pandas as pd
 good = pd.read_csv("https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv", sep='\t')
@@ -33,20 +30,18 @@ def softmax(x):
   return proba/sum(proba)
 
 class NeighborSampler(BaseEstimator):
-  def __init__(self, k=5, temperature=1.0):
-    self.k = k
-    self.temperature = temperature
-  def fit(self, X, y):
-    self.tree_ = BallTree(X)
-    self.y_ = np.array(y)
-  def predict(self, X, random_state=None):
-    distances, indices = self.tree_.query(X, return_distance=True, k=self.k)
-    result = []
-    for distance, index in zip(distances, indices):
-      result.append(np.random.choice(index, p=softmax(distance * self.temperature)))
-      return self.y_[result]
-
-
+    def __init__(self, k=5, temperature=1.0):
+        self.k = k
+        self.temperature = temperature
+    def fit(self, X, y):
+        self.tree_ = BallTree(X)
+        self.y_ = np.array(y)
+    def predict(self, X, random_state=None):
+        distances, indices = self.tree_.query(X, return_distance=True, k=self.k)
+        result = []
+        for distance, index in zip(distances, indices):
+            result.append(np.random.choice(index, p=softmax(distance * self.temperature)))
+            return self.y_[result]
 
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
@@ -56,7 +51,7 @@ def send_welcome(message):
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
-def echo_message(message):
+def echo_all(message):
     bot.reply_to(message, pipe.predict([message.text.lower()])[0])
 
 @server.route('/' + TELEBOT_URL + API_TOKEN, methods=['POST'])
