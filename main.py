@@ -18,7 +18,7 @@ server = Flask(__name__)
 TELEBOT_URL = 'class-vs-dl/'
 BASE_URL = 'https://class-vs-dl.herokuapp.com/'
 
-good = pd.read_csv("https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv", sep='\t')
+good = pd.read_csv("good.tsv", sep='\t')
 
 vectorizer = TfidfVectorizer()
 vectorizer.fit(good.context_0)
