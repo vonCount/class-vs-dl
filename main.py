@@ -91,7 +91,7 @@ def webhook():
 
 @server.route("/show_logs")
 def show_logs():
-    messages_list = list(mongo_logs.find())
+    messages_list = list(es.search(index = "logs"))
     result = '<div>There are {} messages total. The last 10 are: </div><table>'.format(len(messages_list))
     row_template = '<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>'
     result += row_template.format('time', 'user', 'text from user', 'response from bot')
