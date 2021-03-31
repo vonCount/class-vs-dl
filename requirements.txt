@@ -1,4 +1,4 @@
 pytelegrambotapi
 flask
-pymongo
 dnspython
+elasticsearch
