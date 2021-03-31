@@ -1,15 +1,15 @@
-import argparse
 import os
 import telebot
 from flask import Flask, request
 import requests
 import pandas as pd
+import numpy as np
 import sklearn
 from sklearn.feature_extraction.text import TfidfVectorizer #TF-IDF
 from sklearn.decomposition import TruncatedSVD
-import numpy as np
 from sklearn.neighbors import BallTree
 from sklearn.base import BaseEstimator
+from sklearn.pipeline import make_pipeline
 
 API_TOKEN = os.environ['TOKEN']
 bot = telebot.TeleBot(API_TOKEN)
@@ -46,7 +46,6 @@ class NeighborSampler(BaseEstimator):
             result.append(np.random.choice(index, p=softmax(distance * self.temperature)))
             return self.y_[result]
           
-from sklearn.pipeline import make_pipeline
 ns = NeighborSampler()
 ns.fit(matrix_small, good.reply)
 pipe = make_pipeline(vectorizer, svd, ns)
