@@ -51,7 +51,7 @@ es.indices.create(index="logs")
 
 mapit={"log":{"properties":{"text":{"type":"text"},
                             "response":{"type":"text"},
-                            "user_nickname":{"type":"text"}
+                            "user_nickname":{"type":"text"},
                             "timestamp":{"type":"date", "format":"yyyy-MM-dd'T'HH:mm:ss"}}}}
 
 es.indices.put_mapping(index="logs", doc_type='log', body=mapit, include_type_name=True)
