@@ -1,9 +1,3 @@
 pytelegrambotapi
 flask
 dnspython
-elasticsearch
-sklearn
-pandas
-numpy
-requests
-telebot
