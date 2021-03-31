@@ -2,5 +2,3 @@ pytelegrambotapi
 flask
 dnspython
 elasticsearch
-re
-datetime
