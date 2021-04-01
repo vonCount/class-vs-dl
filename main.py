@@ -10,6 +10,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.neighbors import BallTree
 from sklearn.base import BaseEstimator
 from sklearn.pipeline import make_pipeline
+# from elasticsearch import Elasticsearch
 
 API_TOKEN = os.environ['TOKEN']
 bot = telebot.TeleBot(API_TOKEN)
@@ -17,6 +18,47 @@ bot = telebot.TeleBot(API_TOKEN)
 server = Flask(__name__)
 TELEBOT_URL = 'class-vs-dl/'
 BASE_URL = 'https://class-vs-dl.herokuapp.com/'
+
+bonsai = os.environ['BONSAI_URL']
+# auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
+# host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
+
+# # optional port
+# match = re.search('(:\d+)', host)
+# if match:
+#     p = match.group(0)
+#     host = host.replace(p, '')
+#     port = int(p.split(':')[1])
+# else:
+#     port=443
+
+
+# # Connect to cluster over SSL using auth for best security:
+# es_header = [{
+#   'host': host,
+#   'port': port,
+#   'use_ssl': True,
+#   'http_auth': (auth[0],auth[1])
+# }]
+
+# es = Elasticsearch(es_header)
+# es.indices.create(index="logs")
+
+
+# mapit={"log":{"properties":{"text":{"type":"text"},
+#                             "response":{"type":"text"},
+#                             "user_nickname":{"type":"text"},
+#                             "timestamp":{"type":"date", "format":"yyyy-MM-dd'T'HH:mm:ss"}}}}
+
+# es.indices.put_mapping(index="logs", doc_type='log', body=mapit, include_type_name=True)
+
+# def reply_with_log(message, response):
+#     e1 = {"text": message.text,
+#           "response": response,
+#           "user_nickname": message.from_user.username,
+#           "timestamp": datetime.utcnow()}
+#     es.index(index='logs',doc_type='log',body=e1)
+#     bot.reply_to(message, response)
 
 good = pd.read_csv("https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv", sep='\t')
 
@@ -66,6 +108,18 @@ def get_message():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
 
+# @server.route("/show_logs")
+# def show_logs():
+#     messages_list = list(es.search(index = "logs", body={"query": {"match_all": {}}}))
+#     result = '<div>There are {} messages total. The last 10 are: </div><table>'.format(len(messages_list))
+#     row_template = '<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>'
+#     result += row_template.format('time', 'user', 'text from user', 'response from bot')
+#     for message in messages_list[-10:]:
+#         result += row_template.format(
+#             message['timestamp'], message['user_nickname'], message['text'], message['response']
+#         )
+#     result += '</table>'
+#     return result, 200
 
 @server.route("/")
 def webhook():
