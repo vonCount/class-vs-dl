@@ -60,11 +60,11 @@ BASE_URL = 'https://class-vs-dl.herokuapp.com/'
 #     es.index(index='logs',doc_type='log',body=e1)
 #     bot.reply_to(message, response)
 
-good = pd.read_csv("https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv", sep='\t')
+data = pd.read_csv("https://raw.githubusercontent.com/vonCount/class-vs-dl/main/good.tsv", sep='\t')
 
 vectorizer = TfidfVectorizer()
-vectorizer.fit(good.context_0)
-matrix_big = vectorizer.transform(good.context_0)
+vectorizer.fit(data.context_0)
+matrix_big = vectorizer.transform(data.context_0)
 
 svd = TruncatedSVD(n_components=300)
 svd.fit(matrix_big)
@@ -89,7 +89,7 @@ class NeighborSampler(BaseEstimator):
             return self.y_[result]
           
 ns = NeighborSampler()
-ns.fit(matrix_small, good.reply)
+ns.fit(matrix_small, data.reply)
 pipe = make_pipeline(vectorizer, svd, ns)
 
 # Handle '/start' and '/help'
