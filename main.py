@@ -95,7 +95,7 @@ pipe = make_pipeline(vectorizer, svd, ns)
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.reply_to(message, "Hi there, I am EchoBot. Just say anything nice and I'll say the exact same thing to you!")
+    bot.reply_to(message, "Привет! Всё, что я знаю - это цитаты из фильмов. Я подбираю ответы на основе косинусной близости предложений.")
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
