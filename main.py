@@ -19,7 +19,7 @@ server = Flask(__name__)
 TELEBOT_URL = 'class-vs-dl/'
 BASE_URL = 'https://class-vs-dl.herokuapp.com/'
 
-bonsai = os.environ['BONSAI_URL']
+# bonsai = os.environ['BONSAI_URL']
 # auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
 # host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 
