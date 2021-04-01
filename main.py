@@ -92,13 +92,11 @@ ns = NeighborSampler()
 ns.fit(matrix_small, data.reply)
 pipe = make_pipeline(vectorizer, svd, ns)
 
-# Handle '/start' and '/help'
+
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     bot.reply_to(message, "Hi there, I am EchoBot. Just say anything nice and I'll say the exact same thing to you!")
 
-
-# Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
     bot.reply_to(message, pipe.predict([message.text.lower()])[0])
